@@ -36,3 +36,10 @@ class SampleRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 end
+test "should approve sample_request" do
+  post approve_sample_request_url(@sample_request), as: :json
+  assert_response :success
+  @sample_request.reload
+  assert_not_nil @sample_request.approved_at
+  assert_equal "approved_user", @sample_request.approved_by
+end
