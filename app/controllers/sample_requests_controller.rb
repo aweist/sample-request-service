@@ -38,6 +38,17 @@ class SampleRequestsController < ApplicationController
     @sample_request.destroy!
   end
 
+  def approve
+    @sample_request = SampleRequest.find(params[:id])
+    user_id = params[:user_id]
+
+    if @sample_request.update(approved_at: Time.current, approved_by: user_id)
+      render json: @sample_request, status: :ok
+    else
+      render json: @sample_request.errors, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sample_request
