@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  sample-request-service:
+    image: aweist/sample-request-servicelatest
+    ports:
+      - "3000:3000"
+    volumes:
+      - "sample_request_service_storage:/rails/storage"
+volumes:
+  sample_request_service_storage:
