@@ -22,8 +22,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_18_235746) do
     t.string "org"
     t.string "org_name"
     t.integer "org_size"
-    t.datetime "approved_at"
-    t.integer "approved_by"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

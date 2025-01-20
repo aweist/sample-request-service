@@ -1,7 +1,7 @@
 class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     begin
-      a = Mail::Address.new(value)
+      _ = Mail::Address.new(value)
     rescue Mail::Field::ParseError
       record.errors[attribute] << (options[:message] || "is not an email")
     end
@@ -34,8 +34,9 @@ class SampleRequest < ApplicationRecord
       end
 
       if approve
-        self.approved_at = Time.now
-        self.approved_by = 0 # 0 is the system user
+        self.status = "approved"
+      else
+        self.status = "pending"
       end
     end
 end

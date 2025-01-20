@@ -40,9 +40,18 @@ class SampleRequestsController < ApplicationController
 
   def approve
     @sample_request = SampleRequest.find(params[:id])
-    user_id = params[:user_id]
 
-    if @sample_request.update(approved_at: Time.current, approved_by: user_id)
+    if @sample_request.update(status: "approved")
+      render json: @sample_request, status: :ok
+    else
+      render json: @sample_request.errors, status: :unprocessable_entity
+    end
+  end
+
+  def reject
+    @sample_request = SampleRequest.find(params[:id])
+
+    if @sample_request.update(status: "rejected")
       render json: @sample_request, status: :ok
     else
       render json: @sample_request.errors, status: :unprocessable_entity

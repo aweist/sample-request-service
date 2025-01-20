@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :sample_requests do
     member do
       post "approve"
+      post "reject"
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

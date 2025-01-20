@@ -11,8 +11,7 @@ class CreateSampleRequests < ActiveRecord::Migration[8.0]
       t.string :org
       t.string :org_name
       t.integer :org_size
-      t.datetime :approved_at
-      t.integer :approved_by
+      t.string :status
 
       t.timestamps
     end

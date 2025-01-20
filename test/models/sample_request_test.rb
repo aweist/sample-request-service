@@ -36,8 +36,7 @@ class SampleRequestTest < ActiveSupport::TestCase
       org_size: 5
     )
     sample_request.save
-    assert_not_nil sample_request.approved_at, "Sample request was not auto-approved"
-    assert_equal 0, sample_request.approved_by, "Sample request was not approved by the system user"
+    assert_equal "approved", sample_request.status, "Sample request was not auto-approved"
   end
 
   test "should not auto-approve sample request if org size is 10 or more" do
@@ -52,11 +51,11 @@ class SampleRequestTest < ActiveSupport::TestCase
       org_size: 10
     )
     sample_request.save
-    assert_nil sample_request.approved_at, "Sample request was incorrectly auto-approved"
+    assert_equal "pending", sample_request.status, "Sample request was incorrectly auto-approved"
   end
 
   test "should not auto-approve sample request if email already exists" do
-    existing_request = SampleRequest.create(
+    _ = SampleRequest.create(
       email_address: "existing@example.com",
       first_name: "Bob",
       last_name: "Brown",
@@ -77,11 +76,11 @@ class SampleRequestTest < ActiveSupport::TestCase
       org_size: 5
     )
     sample_request.save
-    assert_nil sample_request.approved_at, "Sample request was incorrectly auto-approved"
+    assert_equal "pending", sample_request.status, "Sample request was incorrectly auto-approved"
   end
 
   test "should not auto-approve sample request if address already exists" do
-    existing_request = SampleRequest.create(
+    _ = SampleRequest.create(
       email_address: "unique3@example.com",
       first_name: "Eve",
       last_name: "White",
@@ -102,6 +101,6 @@ class SampleRequestTest < ActiveSupport::TestCase
       org_size: 5
     )
     sample_request.save
-    assert_nil sample_request.approved_at, "Sample request was incorrectly auto-approved"
+    assert_equal "pending", sample_request.status, "Sample request was incorrectly auto-approved"
   end
 end
